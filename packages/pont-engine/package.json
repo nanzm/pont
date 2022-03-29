@@ -1,6 +1,6 @@
 {
   "name": "gitee-pont",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "pont swagger typescript API",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
