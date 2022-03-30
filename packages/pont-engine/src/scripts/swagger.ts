@@ -298,12 +298,20 @@ class SwaggerInterface {
       // 如果请求参数在body中的话，处理方式与response保持一致，因为他们本身的结构是一样的
       if (param.in === 'body') {
         paramSchema = param.schema;
-      } else {
+      } else if (param.in === 'path' || param.in === 'query') {
+        const schemaType = schema.type === 'array' ? undefined : schema.type;
         paramSchema = {
           enum: param.enum,
           items,
           // fix：修复 path query 参数都为 any 的问题
-          type:  type || schema.type,
+          type: type || schemaType,
+          $ref: _.get(schema, '$ref')
+        };
+      } else {
+        paramSchema = {
+          enum: param.enum,
+          items,
+          type,
           $ref: _.get(schema, '$ref')
         };
       }
@@ -659,7 +667,7 @@ export function transformSwaggerData2Standard(swagger: SwaggerDataSource, usingO
   baseClasses.sort((pre, next) => {
     if (pre.name === next.name && pre.templateArgs.length === next.templateArgs.length) {
       return pre.templateArgs.filter(({ isDefsType }) => isDefsType).length >
-        next.templateArgs.filter(({ isDefsType }) => isDefsType).length
+      next.templateArgs.filter(({ isDefsType }) => isDefsType).length
         ? -1
         : 1;
     }
