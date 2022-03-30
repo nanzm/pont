@@ -302,7 +302,8 @@ class SwaggerInterface {
         paramSchema = {
           enum: param.enum,
           items,
-          type,
+          // fix：修复 path query 参数都为 any 的问题
+          type:  type || schema.type,
           $ref: _.get(schema, '$ref')
         };
       }
