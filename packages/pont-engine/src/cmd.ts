@@ -22,6 +22,8 @@ function assert(expression: boolean, message: string) {
   }
 }
 
+console.log('pont-engine:', currentVersion);
+
 (async function() {
   try {
     const manager = await createManager();
@@ -133,7 +135,7 @@ function assert(expression: boolean, message: string) {
       .action(() => {
         scan.main(manager);
     });
-    
+
 
     program.parse(process.argv);
   } catch (e) {

@@ -27,7 +27,7 @@ export class OriginBaseReader {
       // 例如: 请求参数vo, 请求参数, 替换时先替换 请求参数vo, 后替换请求参数
       chineseKeyCollect.sort((pre, next) => next.length - pre.length);
 
-      let result = await Promise.all(chineseKeyCollect.map((text) => Translator.translateAsync(text)));
+      let result = await Promise.all(chineseKeyCollect.map((text) => Translator.translateAsync(text,1)));
       // const normalizeRegStr = (str: string) => str.replace(/(\W)/g, '$1');
       const toRegStr = (str) => str.replace(/(\W)/g, '\\$1');
       result.forEach((enKey: string, index) => {
